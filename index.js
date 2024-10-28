@@ -4,7 +4,7 @@ require("dotenv").config(); // Loading environment variables
 const { sequelize } = require('./db/models/modelSequelize'); // Importing database connection
 const treatmentRoutes = require('./routes/treatmentRoutes'); // Importing treatment routes
 const app = express(); // Creating an Express application
-const port = process.env.server_port || 3000; // Setting the server port
+const port = 3000; // Setting the server port
 
 app.use(express.json()); // Middleware to parse JSON in requests
 
@@ -14,10 +14,10 @@ app.get("/", (req, res) => {
 });
 
 // Using treatment routes
-app.use('/api', treatmentRoutes);
+app.use('/treatment', treatmentRoutes);
 
 // Synchronizing models with the database
-sequelize.sync({ force: true }) // REMOVE 'force: true' in production
+sequelize.sync() // REMOVE 'force: true' in production
     .then(() => {
         console.log('Tables created successfully.');
     })

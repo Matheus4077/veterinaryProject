@@ -1,4 +1,4 @@
-const { sequelize } = require('../../connection/connectionSequelize');
+const { sequelize } = require('../connection/connectionSequelize');
 const { DataTypes } = require("sequelize")
 
 // Modelo para a tabela `personRegister`
