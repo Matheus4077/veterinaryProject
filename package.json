@@ -1,0 +1,21 @@
+{
+  "name": "10-08",
+  "version": "1.0.0",
+  "description": "Este é um sistema de gerenciamento clínico de mascotes desenvolvido usando **Node.js**, **Express**, **Sequelize** e **MySQL**. O sistema tem como objetivo gerenciar dados relacionados a pacientes, tratamentos, animais de estimação, funcionários (tutores, veterinários e enfermeiros) e a ficha diária de tratamento.",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "mysql2": "^3.11.3",
+    "nodemon": "^3.1.7",
+    "sequelize": "^6.37.4"
+  }
+}
