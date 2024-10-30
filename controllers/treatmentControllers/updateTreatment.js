@@ -1,40 +1,51 @@
-// Importing necessary models from Sequelize
-const { Treatment, Medication, PatientsDailyChart } = require('../../db/models/modelSequelize');
+// Import necessary modules
+const express = require('express');
+const { Treatment } = require('../../db/models/modelSequelize'); // Import the Treatment model from Sequelize
 
-// Function to update an existing treatment
+// Create an Express router
+const router = express.Router();
+
+// Asynchronous function to update an existing treatment
 const updateTreatment = async (req, res) => {
-    const { treatmentId } = req.params;
-    const { treatmentData, medications, dailyCharts } = req.body;
+  // Destructure the treatment ID from the request parameters
+  const { treatmentId } = req.params;
 
-    try {
-        // Updating the treatment with new data
-        await Treatment.update(treatmentData, { where: { id: treatmentId } });
+  // Prepare the data to be updated, destructuring from the request body
+  const updateData = {
+    exams: req.body.exams,                        // Exams performed
+    symptoms: req.body.symptoms,                  // Symptoms of the patient
+    diagnosis: req.body.diagnosis,                // Diagnosis made
+    recomendations: req.body.recomendations,      // Recommendations for treatment
+    isAlergic: req.body.isAlergic,               // Indicates if the patient is allergic
+    alergicTo: req.body.alergicTo || null,        // What the patient is allergic to, or null if not applicable
+    specialConditions: req.body.specialConditions || null, // Special conditions, or null if not applicable
+    dischargePreview: req.body.dischargePreview,  // Expected discharge date
+    dischargeNotes: req.body.dischargeNotes || null // Discharge notes, or null if not applicable
+  };
 
-        // Updating associated medications
-        if (medications && medications.length > 0) {
-            // Deleting old medications
-            await Medication.destroy({ where: { treatmentId } });
-            // Creating new medications associated with the treatment
-            const meds = medications.map(med => ({ ...med, treatmentId }));
-            await Medication.bulkCreate(meds);
-        }
+  // Log the treatment ID and the data to be updated for debugging
+  console.log(`Updating treatment with ID: ${treatmentId}`, updateData);
 
-        // Updating associated daily charts
-        if (dailyCharts && dailyCharts.length > 0) {
-            // Deleting old charts
-            await PatientsDailyChart.destroy({ where: { treatmentId } });
-            // Creating new charts associated with the treatment
-            const charts = dailyCharts.map(chart => ({ ...chart, treatmentId }));
-            await PatientsDailyChart.bulkCreate(charts);
-        }
+  try {
+    // Attempt to find the treatment by its primary key (ID)
+    const treatment = await Treatment.findByPk(treatmentId);
 
-        // Responding with a success message
-        res.status(200).json({ message: 'Treatment updated successfully.' });
-    } catch (error) {
-        // Error handling when updating the treatment
-        res.status(400).json({ error: error.message });
+    // If no treatment is found, return a 404 error response
+    if (!treatment) {
+      return res.status(404).json({ message: 'Treatment not found' });
     }
+
+    // If found, update the treatment with the new data
+    await treatment.update(updateData);
+    // Return the updated treatment with a status of 200 (OK)
+    res.status(200).json(treatment);
+  } catch (error) {
+    // If an error occurs, log the error details for debugging
+    console.error('Error updating treatment:', error);
+    // Return a 500 error response with a message and the error details
+    res.status(500).json({ message: 'An error occurred while updating the treatment', error: error.message });
+  }
 };
 
-// Exporting the function for use in other parts of the application
+// Export the updateTreatment function for use in other modules
 module.exports = { updateTreatment };

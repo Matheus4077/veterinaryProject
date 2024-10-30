@@ -1,55 +1,27 @@
-/* // Importing necessary models from Sequelize
-const {Treatment, Medication, PatientsDailyChart} = require("../../db/models/modelSequelize");
-
-// Function to create a new treatment
-const createTreatment = async (req, res) => {
-    // Destructuring data from the request doby
-    const { treatment, medication, dailyCharts } = req.body;
-
-    try {
-        // Creating a new treatmente in database
-        const   treatments = await Treatment.create(treatment);
-        // If there are medications, associate them with the treatment 
-        if (medication && medication.length > 0){
-            const meds = medication.map(med => ({ ...med, treatmentId: treatment.id}));
-            await Medication.bulkCreate(meds);
-        }
-        // If there are daily charts, associate them with the treatment
-        if (dailyCharts && dailyCharts.length > 0) {
-            const charts = dailyCharts.map(chart => ({...chart, treatmentId: treatment.id}));
-            await PatientsDailyChart.bulkCreate(charts);
-        }
-        // Responding with the created treatment
-        res.status(201).json({treatment, medication, dailyCharts});
-      } catch(error){
-        // Error handling when creating the treatment
-        res.status(400).json({error: error.message}).send(error); 
-    }
-};
-// Exporting the function for use in other parts of the application
-module.exports = {createTreatment}; */
-// routes/treatment.js
-
+// Import necessary modules
 const express = require('express');
-const { Treatment } = require('../../db/models/modelSequelize'); // Ajuste o caminho conforme sua estrutura
+const { Treatment } = require('../../db/models/modelSequelize'); // Import the Treatment model from Sequelize
 
+// Create an Express router
 const router = express.Router();
 
-// Rota POST para criar um novo tratamento
-async function createTreatment(req, res){
+// Asynchronous function to create a new treatment
+async function createTreatment(req, res) {
+  // Destructure the data from the request body
   const {
-    exams,
-    symptoms,
-    diagnosis,
-    recomendations,
-    isAlergic,
-    alergicTo,
-    specialConditions,
-    dischargePreview,
-    dischargeNotes,
+    exams,                // Exams performed
+    symptoms,             // Symptoms of the patient
+    diagnosis,            // Diagnosis made
+    recomendations,       // Recommendations for treatment
+    isAlergic,           // Indicates if the patient is allergic
+    alergicTo,           // What the patient is allergic to
+    specialConditions,    // Special conditions of the patient
+    dischargePreview,     // Expected discharge date
+    dischargeNotes,       // Discharge notes
   } = req.body;
 
   try {
+    // Attempt to create a new treatment using the destructured data
     const treatment = await Treatment.create({
       exams,
       symptoms,
@@ -61,11 +33,15 @@ async function createTreatment(req, res){
       dischargePreview,
       dischargeNotes,
     });
+    // If creation is successful, return the created treatment with status 201
     res.status(201).json(treatment);
   } catch (error) {
-    console.error("Erro ao criar tratamento:", error);
+    // If an error occurs, log the error message to the console
+    console.error("Error creating treatment:", error);
+    // Return an error response with status 400 and the error message
     res.status(400).json({ error: error.message });
   }
-};
+}
 
-module.exports = {createTreatment};
+// Export the createTreatment function for use in other modules
+module.exports = { createTreatment };
