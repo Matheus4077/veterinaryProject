@@ -15,7 +15,7 @@ const deleteTreatment = async (req, res) => {
         await Treatment.destroy({ where: { id: treatmentId } });
 
         // Responding with a success message
-        res.status(200).json({ message: 'Treatment and associated data deleted successfully.' });
+        res.status(200).json({ message: "Treatment and associated data deleted successfully." });
     } catch (error) {
         // Error handling when deleting the treatment
         res.status(400).json({ error: error.message });
@@ -23,4 +23,6 @@ const deleteTreatment = async (req, res) => {
 };
 
 // Exporting the function for use in other parts of the application
-module.exports = { deleteTreatment };
+module.exports = {
+    deleteTreatment
+};

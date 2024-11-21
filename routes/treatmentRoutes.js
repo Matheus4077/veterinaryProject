@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 // Importing CRUD functions for treatment
-const treatmentControllers = require("../controllers/treatmentControllers/treatmentExports");
+const treatmentControllers = require('../exports/treatmentExports');
 
 // Defining routes for treatment CRUD operations
 router.post('/', treatmentControllers.createTreatment); // Create a new treatment

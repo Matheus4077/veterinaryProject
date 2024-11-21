@@ -13,7 +13,7 @@ const readTreatmentById = async (req, res) => {
 
         // Checking if the treatment was found
         if (!treatment) {
-            return res.status(404).json({ error: 'Treatment not found.' });
+            return res.status(404).json({ error: "Treatment not found." });
         }
 
         // Responding with the treatment data
@@ -39,7 +39,7 @@ const readTreatmentByPetName = async (req, res) => {
 
         // Checking if treatments were found
         if (treatments.length === 0) {
-            return res.status(404).json({ error: 'No treatments found for this pet.' });
+            return res.status(404).json({ error: "No treatments found for this pet." });
         }
 
         // Responding with the found treatments
@@ -68,7 +68,7 @@ const readTreatmentByTutorName = async (req, res) => {
 
         // Checking if treatments were found
         if (treatments.length === 0) {
-            return res.status(404).json({ error: 'No treatments found for this tutor.' });
+            return res.status(404).json({ error: "No treatments found for this tutor." });
         }
 
         // Responding with the found treatments

@@ -12,10 +12,10 @@ const updateTreatment = async (req, res) => {
 
   // Prepare the data to be updated, destructuring from the request body
   const updateData = {
-    exams: req.body.exams,                        // Exams performed
+    exams: req.body.exams,                        //Exams performed
     symptoms: req.body.symptoms,                  // Symptoms of the patient
     diagnosis: req.body.diagnosis,                // Diagnosis made
-    recomendations: req.body.recomendations,      // Recommendations for treatment
+    recomendations: req.body.recomendations,      // Recommendations for treatment 
     isAlergic: req.body.isAlergic,               // Indicates if the patient is allergic
     alergicTo: req.body.alergicTo || null,        // What the patient is allergic to, or null if not applicable
     specialConditions: req.body.specialConditions || null, // Special conditions, or null if not applicable
@@ -32,7 +32,7 @@ const updateTreatment = async (req, res) => {
 
     // If no treatment is found, return a 404 error response
     if (!treatment) {
-      return res.status(404).json({ message: 'Treatment not found' });
+      return res.status(404).json({ message: "Treatment not found" });
     }
 
     // If found, update the treatment with the new data
@@ -41,11 +41,13 @@ const updateTreatment = async (req, res) => {
     res.status(200).json(treatment);
   } catch (error) {
     // If an error occurs, log the error details for debugging
-    console.error('Error updating treatment:', error);
+    console.error("Error updating treatment:", error);
     // Return a 500 error response with a message and the error details
-    res.status(500).json({ message: 'An error occurred while updating the treatment', error: error.message });
+    res.status(500).json({ message: "An error occurred while updating the treatment", error: error.message });
   }
 };
 
 // Export the updateTreatment function for use in other modules
-module.exports = { updateTreatment };
+module.exports = {
+  updateTreatment
+};

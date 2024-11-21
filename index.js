@@ -3,6 +3,7 @@ const express = require('express');
 require("dotenv").config(); // Loading environment variables
 const { sequelize } = require('./db/models/modelSequelize'); // Importing database connection
 const treatmentRoutes = require('./routes/treatmentRoutes'); // Importing treatment routes
+const medicationRoutes = require('./routes/medicationRutes');
 const app = express(); // Creating an Express application
 const port = 3000; // Setting the server port
 
@@ -15,6 +16,7 @@ app.get("/", (req, res) => {
 
 // Using treatment routes
 app.use('/treatment', treatmentRoutes);
+app.use('/medication', medicationRoutes);
 
 // Synchronizing models with the database
 sequelize.sync() // REMOVE 'force: true' in production

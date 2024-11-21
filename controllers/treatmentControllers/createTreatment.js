@@ -44,4 +44,6 @@ async function createTreatment(req, res) {
 }
 
 // Export the createTreatment function for use in other modules
-module.exports = { createTreatment };
+module.exports = {
+  createTreatment
+};

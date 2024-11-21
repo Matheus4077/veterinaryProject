@@ -1,8 +1,8 @@
 // Import the necessary functions from different modules related to treatment
-const { createTreatment } = require('./createTreatment');
-const { readTreatmentById, readTreatmentByPetName, readTreatmentByTutorName, readAllTreatments } = require('./readTreatment');
-const { updateTreatment } = require('./updateTreatment');
-const { deleteTreatment } = require('./deleteTreatment');
+const { createTreatment } = require('../controllers/treatmentControllers/createTreatment');
+const { readTreatmentById, readTreatmentByPetName, readTreatmentByTutorName, readAllTreatments } = require('../controllers/treatmentControllers/readTreatment');
+const { updateTreatment } = require('../controllers/treatmentControllers/updateTreatment');
+const { deleteTreatment } = require('../controllers/treatmentControllers/deleteTreatment');
 
 // Export an object containing all functions related to treatments
 module.exports = {
