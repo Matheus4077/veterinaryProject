@@ -1,7 +1,7 @@
 const {Medication} = require('../../db/models/modelSequelize');
 
 async function createMedication(req, res) {
-    const {name, doseByKg, administrationRoute, administredAt, frequency, isAdministred} = req.body;
+    const {name, doseByKg, administrationRoute, administredAt, frequency, isAdministred, treatmentId} = req.body;
 
     if (frequency.length > 10) {
         return res.status(400).json({error: "Frequency value is too long, max length is 10 characters"});
@@ -15,6 +15,7 @@ async function createMedication(req, res) {
             administredAt,
             frequency,
             isAdministred,
+            treatmentId
         });
 
         console.log("Created medication:", medication);
